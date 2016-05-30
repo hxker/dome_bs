@@ -1,0 +1,110 @@
+zh-CN:
+  simple_form:
+    labels:
+      defaults:
+        email: '邮箱'
+        mobile: '手机号'
+        mobile_code: '验证码'
+        email_code: '邮箱验证码'
+        username: '姓名'
+        login: '账号'
+        old_password: '原密码'
+        new_password: '新密码'
+        password_confirmation: '确认密码'
+        new_mobile: '新手机号'
+        login: '账号'
+        password: '密码'
+        encrypted_password: '密码'
+        password_digest: '密码'
+        name: '名称'
+        school: '学校'
+        grade: '年级'
+        bj: '班级'
+        birthday: '生日'
+        nickname: '用户名'
+        experience: '经验值'
+        point: '账户积分'
+        sign_in_count: '登录次数'
+        tel: '联系电话'
+        address: '地址'
+        phone: '手机'
+        gender: '性别'
+        age: '年龄'
+        position: '职位'
+        permissions: '权限'
+        job_number: '账号'
+        current_sign_in_at: '最后登录时间'
+        description: '描述'
+        start_time: '开始时间'
+        end_time: '结束时间'
+        apply_start_time: '报名开始时间'
+        apply_end_time: '报名结束时间'
+        address: '地址'
+        tel: '联系电话'
+        responsible: '负责人'
+        guide_units: '指导单位'
+        organizer_units: '主办单位'
+        help_units: '协办单位'
+        support_units: '赞助单位'
+        undertake_units: '承办单位'
+        status: '状态'
+        team_min_num: '每队最少人数'
+        team_max_num: '每队最多人数'
+        competition_id: '所属比赛'
+        team_code: '队伍秘钥'
+        operator: '操作员'
+        comp_name: '赛程名'
+        th: '场次'
+        team1_id: '参赛队伍'
+        team2_id: '参赛队伍'
+        referee_id: '主裁判'
+        score1: '成绩(比分)'
+        score2: '成绩(比分)'
+        kind: '赛制'
+        category: '类别'
+        event_id: '比赛项目'
+        news_type_id: '类型'
+        content: '内容'
+        likes_count: '点赞数'
+        expert_score: '专家评分'
+        last_score: '最终分数'
+        news_type: '新闻类型'
+        teacher_no: '教师编号'
+        host_year: '举办年份'
+        host_address: '举办地点'
+        student_code: '学籍号'
+        sort: '排序'
+        desc: '描述'
+        write_type: '计分方式'
+
+    "yes": '是'
+    "no": '否'
+    "create": '创建'
+    required:
+      text: '必填字段'
+      mark: '*'
+      # You can uncomment the line below if you need to overwrite the whole required html.
+      # When using html, text and mark won't be used.
+      # html: '<abbr title="required">*</abbr>'
+    error_notification:
+      default_message: "很抱歉, 操作出现了错误。。。"
+    # Labels and hints examples
+    # labels:
+    #   defaults:
+    #     password: 'Password'
+    #   user:
+    #     new:
+    #       email: 'E-mail to sign in.'
+    #     edit:
+    #       email: 'E-mail.'
+    # hints:
+    #   defaults:
+    #     username: 'User name to sign in.'
+    #     password: 'No special characters, please.'
+#
+#    errors:
+#      models:
+#        supplier:
+#          attributes:
+#            name:
+#              blank: '名称不能为空'

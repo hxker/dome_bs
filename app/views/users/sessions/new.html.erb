@@ -1,0 +1,38 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-4 col-md-4 ">
+      <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+          <div class="field form-group">
+            <label for="user_login" class="control-label">账号:</label><br/>
+            <%= f.text_field :login, class: 'form-control', placeholder: '邮箱/手机号/昵称' %>
+          </div>
+
+          <div class="field form-group">
+            <label for="user_password" class="control-label">密码:</label><br/>
+            <%= f.password_field :password, autocomplete: "off", class: 'form-control', placeholder: '请输入密码' %>
+          </div>
+
+          <% if devise_mapping.rememberable? -%>
+              <div class="field">
+                <%= f.check_box :remember_me %>
+                <label for="user_remember_me">记住我</label>
+
+                <div class="pull-right">
+                  <a href="<%= "#" %>">忘记密码?</a>
+                </div>
+              </div>
+          <% end -%>
+
+          <div class="actions">
+            <%= f.submit class: 'btn btn-primary btn-block', value: '登录豆姆' %>
+          </div>
+      <% end %>
+      <p class="clearfix text-right">
+        没有账号?<a class="blue" href="<%= new_user_registration_path %>"> 注册</a>
+      </p>
+    </div>
+  </div>
+
+</div>
+
+

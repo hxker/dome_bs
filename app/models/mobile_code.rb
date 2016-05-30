@@ -1,0 +1,2 @@
+class MobileCode < ApplicationRecord
+end

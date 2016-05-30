@@ -1,0 +1,32 @@
+<div class="floor" id="register">
+  <div id="nav" class="nav-v2 container-layer">
+    <%= render 'layouts/nav_menu' %>
+  </div>
+  <div id="register-content" class="">
+    <div class="passport">
+      <div class="passport-title t-22 text-center">
+        重置密码
+      </div>
+      <div class="passport-content">
+        <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: {method: :put}) do |f| %>
+            <%= devise_error_messages! %>
+            <%= f.hidden_field :reset_password_token %>
+
+            <div class="field form-group">
+              <%= f.label :password, '新密码', class: 'label-control' %><br/>
+              <%= f.password_field :password, autofocus: true, autocomplete: "off", class: 'form-control', placeholder: '请设置6-20位的新密码' %>
+            </div>
+
+            <div class="field form-group">
+              <%= f.label :password_confirmation, '确认新密码', class: 'control-label' %><br/>
+              <%= f.password_field :password_confirmation, autocomplete: "off", class: 'form-control', placeholder: '请重复输入新密码' %>
+            </div>
+
+            <div class="actions">
+              <%= f.submit class: 'btn-forget-confirm', value: '重置密码' %>
+            </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

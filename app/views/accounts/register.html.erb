@@ -1,0 +1,40 @@
+<div class="container">
+
+  <div class="row">
+    <div class="passport">
+      <h2>注册</h2>
+      <div class="col-sm-4 col-md-4">
+        <%= simple_form_for(@sing_up, url: register_post_accounts_path, method: :post) do |f| %>
+            <div class="text-right">没有手机？请用<a class="blue" href="/account/sign_up">邮箱</a>注册<br/>
+            </div>
+            <%= f.input :mobile, as: :tel, placeholder: '请输入手机号', wrapper_html: {class: ''} %>
+
+            <label class="input-row">
+              验证码
+              <a class="refresh-captcha" href="#">
+                <%= rucaptcha_image_tag(title: '点击刷新验证码') %>
+              </a>
+              <%= rucaptcha_input_tag %>
+              <% if request.post? && !verify_rucaptcha?(resource) %>
+                  <span class="tips">验证码不正确</span>
+              <% end %>
+            </label>
+
+            <div>
+              <%= f.input :mobile_code, as: :tel, placeholder: '请输入手机验证码' %>
+              <button type="button" data-key="sing_up" data-type="REGISTER" id="btn_send_mobile_code" class="btn-get-code">获取验证码</button>
+            </div>
+            <%= f.input :nickname, as: :tel, placeholder: '请输入昵称', wrapper_html: {class: ''} %>
+            <%= f.input :password, placeholder: '请设置您的密码 (6-20位)', wrapper_html: {class: ''} %>
+
+            <div class="form-group form-group-lg">
+              <%= f.submit class: 'btn-confirm-register', value: '立即注册' %>
+            </div>
+        <% end %>
+        <p class="clearfix text-right">
+          <a href="<%= new_user_session_path %>">使用已有账户登录</a>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
