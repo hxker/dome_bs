@@ -16,3 +16,10 @@
  *= //require_tree .
  *= require_self
  */
+
+#rucaptcha-image-style {
+    position: absolute;
+    width: 110px;
+    height: 32px;
+    right: 18px
+}

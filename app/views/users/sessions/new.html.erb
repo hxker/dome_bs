@@ -1,6 +1,7 @@
 <div class="container">
   <div class="row">
-    <div class="col-sm-4 col-md-4 ">
+    <div class="col-sm-4 col-md-4">
+      <h2 class="text-center">登录</h2>
       <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
           <div class="field form-group">
             <label for="user_login" class="control-label">账号:</label><br/>
@@ -18,7 +19,7 @@
                 <label for="user_remember_me">记住我</label>
 
                 <div class="pull-right">
-                  <a href="<%= "#" %>">忘记密码?</a>
+                  <a href="<%= new_password_path(resource_name) %>">忘记密码?</a>
                 </div>
               </div>
           <% end -%>

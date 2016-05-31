@@ -7,28 +7,38 @@
         <%= simple_form_for(@sing_up, url: register_post_accounts_path, method: :post) do |f| %>
             <div class="text-right">没有手机？请用<a class="blue" href="/account/sign_up">邮箱</a>注册<br/>
             </div>
-            <%= f.input :mobile, as: :tel, placeholder: '请输入手机号', wrapper_html: {class: ''} %>
+            <%= f.input :nickname, as: :tel, placeholder: '请输入昵称' %>
+            <%= f.input :password, placeholder: '请输入至少6位密码', wrapper_html: {class: ''} %>
 
-            <label class="input-row">
-              验证码
-              <a class="refresh-captcha" href="#">
-                <%= rucaptcha_image_tag(title: '点击刷新验证码') %>
-              </a>
-              <%= rucaptcha_input_tag %>
-              <% if request.post? && !verify_rucaptcha?(resource) %>
-                  <span class="tips">验证码不正确</span>
-              <% end %>
-            </label>
-
-            <div>
-              <%= f.input :mobile_code, as: :tel, placeholder: '请输入手机验证码' %>
-              <button type="button" data-key="sing_up" data-type="REGISTER" id="btn_send_mobile_code" class="btn-get-code">获取验证码</button>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-xs-12">
+                  <div class="row">
+                    <div class="col-xs-7">
+                      <div class="form-group string">
+                        <%= rucaptcha_input_tag(class: 'form-control ', placeholder: '请输入校验码') %>
+                      </div>
+                    </div>
+                    <div class="col-xs-5">
+                      <span class="refresh-captcha">
+                        <%= rucaptcha_image_tag(alt: '校验码', id: 'rucaptcha-image-style') %>
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-            <%= f.input :nickname, as: :tel, placeholder: '请输入昵称', wrapper_html: {class: ''} %>
-            <%= f.input :password, placeholder: '请设置您的密码 (6-20位)', wrapper_html: {class: ''} %>
+
+            <div class="input-group form-group required sing_up_mobile">
+
+              <input id="sing_up_mobile" class="string tel required form-control" type="tel" name="sing_up[mobile]" placeholder="请输入手机号">
+              <span class="input-group-addon btn btn-default" id="btn_send_mobile_code" data-key="sing_up" data-type="REGISTER">发送验证码</span>
+            </div>
+
+            <%= f.input :mobile_code, as: :tel, placeholder: '请输入手机验证码' %>
 
             <div class="form-group form-group-lg">
-              <%= f.submit class: 'btn-confirm-register', value: '立即注册' %>
+              <%= f.submit class: 'btn btn-primary btn-block', value: '立即注册', 'data-disable-with' => '正在注册' %>
             </div>
         <% end %>
         <p class="clearfix text-right">
