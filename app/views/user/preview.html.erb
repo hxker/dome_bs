@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12 col-sm-3 hidden-xs">
+      <%= render 'user/menu' %>
+    </div>
+    <div class="col-xs-12 col-sm-9">
+      <h1 class="page-header">
+        我的账户
+      </h1>
+
+      <%= render 'user/tab' %>
+      <div class="panel panel-default">
+        <div class="panel-body">
+          <%= link_to user_profile_path do %>
+              <%= image_tag(current_user.avatar_url(:middle), class: 'img-thumbnail') %>
+          <% end %>
+        </div>
+        <ul class="list-group">
+
+          <li class="list-group-item">
+            昵称：<a href="<%= user_profile_path %>"><%= current_user.nickname %></a>
+          </li>
+
+
+          <% if @user_info.present? %>
+              <li class="list-group-item">
+                姓名：<%= @user_info.name %>
+              </li>
+              <li class="list-group-item">
+                性别：
+                <% if @user_info.gender == 1 %>男
+                <% elsif @user_info.gender == 2 %>女
+                <% else %>
+                <% end %>
+              </li>
+              <li class="list-group-item">
+                生日：<%= @user_info.birthday %>
+              </li>
+
+              <li class="list-group-item">
+                地址：<%= @user_info.address %>
+              </li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+

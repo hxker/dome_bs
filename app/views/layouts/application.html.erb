@@ -32,8 +32,8 @@
               <span class="caret"></span>
             </span>
         <% else %>
-            <a class="navbar-brand pull-right visible-xs navbar-padding" href="<%= new_user_registration_path %>">注册</a>
-            <a class="navbar-brand pull-right visible-xs navbar-padding" href="<%= new_user_session_path %>">登录</a>
+            <a class="navbar-brand pull-right visible-xs" href="<%= new_user_registration_path %>">注册</a>
+            <a class="navbar-brand pull-right visible-xs" href="<%= new_user_session_path %>">登录</a>
 
         <% end %>
         <!-- end visible xs -->
@@ -41,21 +41,32 @@
       <!-- begin hidden xs -->
       <ul class="nav navbar-nav navbar-right hidden-xs">
         <% if user_signed_in? %>
-            <li class="dropdown">
+            <li>
+              <a href="<%= "#" %>">
+                <i class="glyphicon glyphicon-bell"></i>
+                <% if current_user.notifications.unread.count > 0 %>
+                    <span class="badge"><%= current_user.notifications.unread.count %></span>
+                <% end %>
+              </a>
+            </li>
 
+
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <%= current_user.nickname %>
+                <span class="caret"></span></a>
               <ul class="dropdown-menu" role="menu">
                 <% if current_user %>
                     <li>
-                      <a href="<%= "#" %>">我的账户<span class="visible-xs pull-right">[ <%= current_user.nickname %>
+                      <a href="<%= user_preview_path %>">个人信息<span class="visible-xs pull-right">[ <%= current_user.nickname %>
                         ]</span></a>
                     </li>
                     <li class="nav-divider visible-xs"></li>
                     <li class="divider hidden-xs"></li>
                     <li>
-                      <a href="#">我的收藏</a>
+                      <a href="#">消息通知</a>
                     </li>
                     <li class="nav-divider visible-xs"></li>
-                    <li class="divider hidden-xs"></li>
 
                 <% end %>
               </ul>
@@ -117,5 +128,79 @@
       <% end %>
     </script>
 <% end %>
+
+<% if current_user %>
+    <script type="text/javascript" charset="utf-8">
+
+      $(function () {
+        function notify(title, content) {
+          if (!title && !content) {
+            title = "桌面提醒";
+            content = "您看到此条信息桌面提醒设置成功";
+          }
+          var iconUrl = "/assets/icon.png";
+          if (window.webkitNotifications) {
+            //chrome老版本
+            if (window.webkitNotifications.checkPermission() == 0) {
+              var notif = window.webkitNotifications.createNotification(iconUrl, title, content);
+              notif.display = function () {
+              };
+              notif.onerror = function () {
+              };
+              notif.onclose = function () {
+              };
+              notif.onclick = function () {
+                this.cancel();
+              };
+              notif.replaceId = 'Meteoric';
+              notif.show();
+            } else {
+              window.webkitNotifications.requestPermission($jy.notify);
+            }
+          }
+          else if ("Notification" in window) {
+            // 判断是否有权限
+            if (Notification.permission === "granted") {
+              var notification = new Notification(title, {
+                "icon": iconUrl,
+                "body": content
+              });
+            }
+            //如果没权限，则请求权限
+            else if (Notification.permission !== 'denied') {
+              Notification.requestPermission(function (permission) {
+                // Whatever the user answers, we make sure we store the
+                // information
+                if (!('permission' in Notification)) {
+                  Notification.permission = permission;
+                }
+                //如果接受请求
+                if (permission === "granted") {
+                  var notification = new Notification(title, {
+                    "icon": iconUrl,
+                    "body": content
+                  });
+                }
+              });
+            }
+          }
+        }
+
+        MessageBus.start(); // call once at startup
+        MessageBus.callbackInterval = 500;
+        channel = '/channel';
+        window.roomid = "<%= current_user.private_token %>";
+        if (window.roomid) {
+          channel = channel + '/' + window.roomid;
+        }
+        MessageBus.subscribe(channel, function (data) {
+          $('.badge-notify-count').text(data.count);
+          notify(data.content);
+          $('#content').val('');
+        });
+      })
+    </script>
+<% end %>
+
 </body>
 </html>

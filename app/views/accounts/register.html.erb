@@ -2,8 +2,9 @@
 
   <div class="row">
     <div class="passport">
-      <h2>注册</h2>
+
       <div class="col-sm-4 col-md-4">
+        <h2 class="text-center">注册</h2>
         <%= simple_form_for(@sing_up, url: register_post_accounts_path, method: :post) do |f| %>
             <div class="text-right">没有手机？请用<a class="blue" href="/account/sign_up">邮箱</a>注册<br/>
             </div>
@@ -31,7 +32,7 @@
 
             <div class="input-group form-group required sing_up_mobile">
 
-              <input id="sing_up_mobile" class="string tel required form-control" type="tel" name="sing_up[mobile]" placeholder="请输入手机号">
+              <input id="sing_up_mobile" class="string tel required form-control" type="tel" name="sing_up[mobile]" value="<%= @sing_up.mobile %>" placeholder="请输入手机号">
               <span class="input-group-addon btn btn-default" id="btn_send_mobile_code" data-key="sing_up" data-type="REGISTER">发送验证码</span>
             </div>
 

@@ -69,8 +69,8 @@ $(function () {
     });
 
     // 检测用户名是否存在
-    $('#sing_up_nickname').blur(function () {
-        var nickname = trim($('#sing_up_nickname').val());
+    $('#sing_up_nickname,#user_nickname').blur(function () {
+        var nickname = trim($('#sing_up_nickname,#user_nickname').val());
         if (nickname) {
             $.ajax({
                 url: '/accounts/register_nickname_exists',
