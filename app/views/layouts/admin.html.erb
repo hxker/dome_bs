@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>豆姆智能科技 － 管理后台</title>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag 'admin', media: 'all', 'data-turbolinks-track' => false %>
+</head>
+<body>
+<% if notice.present? %>
+    <div id="notice"><%= notice %></div>
+<% end %>
+<% if alert.present? %>
+    <div id="alert"><%= alert %></div>
+<% end %>
+<div class="navbar navbar-default" id="navbar">
+  <div class="navbar-container" id="navbar-container">
+    <div class="navbar-header pull-left">
+      <a href="/admin" class="navbar-brand">
+        <small><i class="icon-leaf"></i> 豆姆科技管理后台</small>
+      </a>
+    </div>
+    <div class="navbar-header pull-right" role="navigation">
+      <ul class="nav ace-nav">
+        <li class="grey">
+          <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            <i class="icon-tasks"></i>
+            <span class="badge badge-grey">0</span>
+          </a>
+        </li>
+        <li class="purple">
+          <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            <i class="icon-bell-alt icon-animated-bell"></i>
+            <span class="badge badge-important">0</span>
+          </a>
+          <!--<ul class="pull-right dropdown-navbar navbar-pink dropdown-menu dropdown-caret dropdown-close">-->
+          <!--<li class="dropdown-header">-->
+          <!--<i class="icon-warning-sign"></i>-->
+          <!--共有 0 个身份待审核-->
+          <!--</li>-->
+
+          <!--<li>-->
+          <!--<a href="/admin/checks/teachers">-->
+          <!--<div class="clearfix">-->
+          <!--<span class="pull-left">-->
+          <!--老师-->
+          <!--</span>-->
+          <!--<span class="pull-right badge badge-info">+0</span>-->
+          <!--</div>-->
+          <!--</a>-->
+          <!--</li>-->
+
+          <!--<li>-->
+          <!--<a href="/admin/checks/referees">-->
+          <!--<div class="clearfix">-->
+          <!--<span class="pull-left">-->
+          <!--裁判-->
+          <!--</span>-->
+          <!--<span class="pull-right badge badge-success">+0</span>-->
+          <!--</div>-->
+          <!--</a>-->
+          <!--</li>-->
+
+          <!--<li>-->
+          <!--<a href="#">-->
+          <!--暂不审核-->
+          <!--<i class="icon-arrow-right"></i>-->
+          <!--</a>-->
+          <!--</li>-->
+          <!--</ul>-->
+
+        </li>
+
+        <li class="green">
+          <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+            <i class="icon-envelope icon-animated-vertical"></i>
+            <span class="badge badge-success">0</span>
+          </a>
+        </li>
+        <li class="light-blue">
+          <a data-toggle="dropdown" href="#" class="dropdown-toggle" style="min-width: 112px">
+            <span class="user-info">
+                <small>欢迎登录</small>
+              <%= @current_admin.job_number %><%= " - #{ @current_admin.name }" if @current_admin.name.present? %>
+            </span>
+            <i class="icon-caret-down"></i>
+          </a>
+          <ul class="dropdown-admin-layout user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close" style="min-width: 114px;right: -1px">
+            <li>
+              <a href="<%= change_password_admin_accounts_path %>">
+                <i class="icon-cog"></i>
+                修改密码
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <a href="#">
+                <i class="icon-user"></i>
+                个人信息
+              </a>
+            </li>
+            <li class="divider"></li>
+            <li>
+              <%= link_to admin_account_path(@current_admin), method: :delete, data: {confirm: '确认退出吗？'}, title: '退出登录', class: '' do %>
+                  <i class="icon-off"></i>
+                  退出登录
+              <% end %>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="main-container" id="main-container">
+  <div class="main-container-inner">
+    <a class="menu-toggler" id="menu-toggler" href="#">
+      <span class="menu-text"></span>
+    </a>
+
+    <div class="sidebar" id="sidebar">
+      <script type="text/javascript">
+        try {
+          ace.settings.check('sidebar', 'fixed')
+        } catch (e) {
+        }
+      </script>
+      <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+          <button class="btn btn-success">
+            <i class="icon-signal"></i>
+          </button>
+
+          <button class="btn btn-info">
+            <i class="icon-pencil"></i>
+          </button>
+
+          <button class="btn btn-warning">
+            <i class="icon-group"></i>
+          </button>
+
+          <button class="btn btn-danger">
+            <i class="icon-cogs"></i>
+          </button>
+        </div>
+
+        <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+          <span class="btn btn-success"></span>
+
+          <span class="btn btn-info"></span>
+
+          <span class="btn btn-warning"></span>
+
+          <span class="btn btn-danger"></span>
+        </div>
+      </div>
+      <!-- #sidebar-shortcuts -->
+      <ul class="nav nav-list">
+        <li class="<%= params[:controller] == 'admin/users' ? 'active' : '' %>">
+          <a href="<%= admin_users_path %>">
+            <i class="icon-user"></i>
+            <span class="menu-text"> 用户 </span>
+          </a>
+        </li>
+        <li class="<%= params[:controller] == 'admin/admins' ? 'active' : '' %>">
+          <a href="<%= admin_admins_path %>">
+            <i class="icon-gear"></i>
+            <span class="menu-text"> 管理员 </span>
+          </a>
+        </li>
+        <li class="<%= params[:controller] == 'admin/organizers' ? 'active' : '' %>">
+          <a href="<%= admin_organizers_path %>">
+            <i class="icon-home"></i>
+            <span class="menu-text"> 单位 </span>
+          </a>
+        </li>
+        <li class="<%= params[:controller] == 'admin/districts' ? 'active' : '' %>">
+          <a href="<%= admin_districts_path %>">
+            <i class="icon-globe"></i>
+            <span class="menu-text"> 区县 </span>
+          </a>
+        </li>
+        <li class="<%= params[:controller] == 'admin/schedules' ? 'active' : '' %>">
+          <a href="<%= admin_schedules_path %>">
+            <i class="icon-calendar"></i>
+            <span class="menu-text"> 赛程名 </span>
+          </a>
+        </li>
+        <li class="<%= params[:controller] == 'admin/roles' ? 'active' : '' %>">
+          <a href="<%= admin_roles_path %>">
+            <i class="icon-leaf"></i>
+            <span class="menu-text"> 角色 </span>
+          </a>
+        </li>
+        <li class="<%= params[:controller] == 'admin/news_types' ? 'active' : '' %>">
+          <a href="<%= admin_news_types_path %>">
+            <i class="icon-list"></i>
+            <span class="menu-text"> 新闻类型 </span>
+          </a>
+        </li>
+        <li class="<%= params[:controller] == 'admin/news' ? 'active' : '' %>">
+          <a href="<%= admin_news_index_path %>">
+            <i class="icon-comment-alt"></i>
+            <span class="menu-text"> 新闻 </span>
+          </a>
+        </li>
+        <li class="<%= params[:controller] == 'admin/competitions' ? 'active' : '' %>">
+          <a href="<%= admin_competitions_path %>">
+            <i class="icon-beaker"></i>
+            <span class="menu-text"> 比赛 </span>
+          </a>
+        </li>
+        <li class="<%= params[:controller] == 'admin/events' ? 'active' : '' %>">
+          <a href="<%= admin_events_path %>">
+            <i class="icon-hand-right"></i>
+            <span class="menu-text"> 项目 </span>
+          </a>
+        </li>
+        <li class="<%= params[:controller] == 'admin/score_attributes' ? 'active' : '' %>">
+          <a href="<%= admin_score_attributes_path %>">
+            <i class="icon-hdd"></i>
+            <span class="menu-text"> 成绩属性 </span>
+          </a>
+        </li>
+        <li class="<%= params[:controller] == 'admin/activities' ? 'active' : '' %>">
+          <a href="<%= admin_activities_path %>">
+            <i class="icon-gift"></i>
+            <span class="menu-text"> 活动 </span>
+          </a>
+        </li>
+        <li class="<%= params[:controller] == 'admin/volunteers' ? 'active' : '' %>">
+          <a href="<%= admin_volunteers_path %>">
+            <i class="icon-glass"></i>
+            <span class="menu-text"> 志愿者 </span>
+          </a>
+        </li>
+        <li class="<%= params[:controller] == 'admin/consults' ? 'active' : '' %>">
+          <a href="<%= admin_consults_path %>">
+            <i class="icon-comments"></i>
+            <span class="menu-text"> 用户反馈 </span>
+          </a>
+        </li>
+        <!--<li class="<%= params[:controller] == 'admin/demeanor' ? 'active' : '' %>">-->
+        <!--<a href="<%= admin_photos_path %>">-->
+        <!--<i class="icon-camera"></i>-->
+        <!--<span class="menu-text"> 选手风采 </span>-->
+        <!--</a>-->
+        <!--</li>-->
+
+      </ul>
+      <!-- /.nav-list -->
+      <div class="sidebar-collapse" id="sidebar-collapse">
+        <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+      </div>
+      <script type="text/javascript">
+        try {
+          ace.settings.check('sidebar', 'collapsed')
+        } catch (e) {
+        }
+      </script>
+    </div>
+    <div class="main-content">
+      <div class="breadcrumbs" id="breadcrumbs">
+        <ul class="breadcrumb">
+          <li>
+            <i class="icon-home home-icon"></i>
+            <a href="/admin">首页</a>
+          </li>
+        </ul>
+        <!-- .breadcrumb -->
+      </div>
+      <div class="page-content">
+        <%= yield %>
+      </div>
+    </div>
+  </div>
+</div>
+<%= javascript_include_tag 'admin', 'data-turbolinks-track' => true %>
+<script type="text/javascript">
+  jQuery(function ($) {
+    var color_box_params = {
+      reposition: true,
+      scalePhotos: true,
+      scrolling: false,
+      previous: '<i class="icon-arrow-left"></i>',
+      next: '<i class="icon-arrow-right"></i>',
+      close: '&times;',
+      current: '{current} / {total}',
+      maxWidth: '100%',
+      maxHeight: '100%',
+      onOpen: function () {
+        document.body.style.overflow = 'hidden';
+      },
+      onClosed: function () {
+        document.body.style.overflow = 'auto';
+      },
+      onComplete: function () {
+        $.colorbox.resize();
+      }
+    };
+    $('.ace-thumbnails [data-rel="colorbox"]').colorbox(color_box_params);
+    $("#cboxLoadingGraphic").append("<i class='icon-spinner orange'></i>");//loading icon
+  })
+</script>
+</body>
+</html>

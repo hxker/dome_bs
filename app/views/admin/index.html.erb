@@ -1,0 +1,85 @@
+<h1 class="page-header">
+  账号：<%= @current_admin.job_number %>
+  <small class="pull-right">
+    <%= show_permissions(@current_admin) %>
+  </small>
+</h1>
+
+<!--<div class="profile-user-info-striped">-->
+<!--<div class="profile-info-row">-->
+<!--<div class="profile-info-name"> Username</div>-->
+<!--<div class="profile-info-value">-->
+<!--<span style="">12345677</span>-->
+<!--</div>-->
+<!--</div>-->
+<!--<div class="profile-info-row">-->
+<!--<div class="profile-info-name"> Location</div>-->
+<!--<div class="profile-info-value">-->
+<!--<i class="icon-map-marker light-orange bigger-110"></i>-->
+<!--<span>1234567</span>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+
+<div class="alert alert-success">
+  <i class="icon-hand-right"></i>
+  欢迎登录!
+  <button class="close" data-dismiss="alert">
+    <i class="icon-remove"></i>
+  </button>
+</div>
+
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        用户信息
+      </div>
+      <div class="panel-body">
+        <ul>
+          <li>用户总数： <span><%= @all_user_num %></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        待审核积分
+      </div>
+      <div class="panel-body">
+        <ul>
+          <li><a href="/admin/checks/points">总数：<span><%= @review_th_num %></span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        用户信息
+      </div>
+      <div class="panel-body">
+        <ul>
+          <li>用户总数： <span><%= @all_user_num %></span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="panel panel-info">
+      <div class="panel-heading">
+        待审核角色
+      </div>
+      <div class="panel-body">
+        <ul>
+          <li><a href="/admin/checks/teachers">教师：<span><%= @review_th_num %></span></a></li>
+          <li><a href="/admin/checks/referees">裁判：<span><%= @review_re_num %></span></a></li>
+          <li><a href="/admin/checks/schools">学校：<span><%= @review_sc_num %></span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
